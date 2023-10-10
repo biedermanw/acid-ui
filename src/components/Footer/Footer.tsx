@@ -1,17 +1,20 @@
+import { useRoutesConfig } from "../../context/routesConfigContext";
+import { Link } from "react-router-dom";
 import { FooterContainer } from "./Footer.styles";
 
-export type FooterProps = {
-  links?: { text: string; url: string }[];
-};
+const Footer: React.FC = () => {
+  const routesConfig = useRoutesConfig();
+  const allRoutes = routesConfig.flatMap((config) => config.routes);
 
-const Footer: React.FC<FooterProps> = ({ links = [] }) => {
   return (
     <FooterContainer>
-      {links.map((link, index) => (
-        <a key={index} href={link.url}>
-          {link.text}
-        </a>
-      ))}
+      {allRoutes
+        .filter((route) => route.showInFooter)
+        .map((route) => (
+          <Link key={route.path} to={route.path}>
+            {route.title}
+          </Link>
+        ))}
       &copy; {new Date().getFullYear()} All rights reserved. | Developed by{" "}
       <a
         href="https://your-website.com"

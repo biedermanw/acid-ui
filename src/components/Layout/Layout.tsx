@@ -12,13 +12,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <GlobalStyle />
       <Navbar />
       <main>{children}</main>
-      <Footer
-        links={[
-          { text: "Home", url: "/" },
-          { text: "About", url: "/about" },
-          { text: "Contact", url: "/contact" },
-        ]}
-      />
+      <Footer />
     </div>
   );
 };

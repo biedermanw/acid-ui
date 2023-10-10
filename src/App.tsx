@@ -1,10 +1,35 @@
-import HomePage from "./pages/HomePage/HomePage";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "./context/themeContext";
+import {
+  RoutesConfigProvider,
+  useRoutesConfig,
+} from "./context/routesConfigContext";
+
+const RenderRoutes = () => {
+  const routes = useRoutesConfig();
+  return (
+    <Routes>
+      {routes.map((routeGroup) =>
+        routeGroup.routes.map((route) => (
+          <Route
+            key={route.path}
+            path={route.path}
+            element={<route.component />}
+          />
+        ))
+      )}
+    </Routes>
+  );
+};
 
 const App = () => {
   return (
     <ThemeProvider>
-      <HomePage />
+      <Router>
+        <RoutesConfigProvider>
+          <RenderRoutes />
+        </RoutesConfigProvider>
+      </Router>
     </ThemeProvider>
   );
 };
